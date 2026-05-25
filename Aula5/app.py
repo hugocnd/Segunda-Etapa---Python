@@ -13,8 +13,8 @@ def questao2():
     idadep = "17"
     return render_template('questa2.html', nome=nomep, idade=idadep)
 
-def questao3():
 @app.route('/questao3')
+def questao3():
     nomep = "Hugo"
     emailp = "22400206@aluno.cotemig.com.br"
     return render_template('questao3.html', nome=nomep, email=emailp)
