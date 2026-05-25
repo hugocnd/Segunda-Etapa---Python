@@ -1,10 +1,16 @@
-{% extends "index.html"%}
+{% extends "index.html" %}
 
-{% block tittle%} Questão 4 {% endblock%}
-{% block content%} 
+{% block title %} Questão 4 {% endblock %}
+{% block content %} 
 
-LISTA DE ALUNOS:
+<h2> ALUNOS: </h2>
+<ul>
+{% for aluno in alunos %}
+    <li>
+        {{ loop.index }} - {{ aluno.nome }}
+        (Nota: {{ aluno.nota }}) 
+    </li>
+{% endfor %}
+</ul>
 
-{{alunos}}
-
-{% endblock%}
+{% endblock %}
