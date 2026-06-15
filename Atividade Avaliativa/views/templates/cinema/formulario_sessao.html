@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema - Nova Sessão</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; color: #333; }
+        .form-grupo { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        select, input { padding: 8px; width: 100%; max-width: 300px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Nova sessão</h1>
+
+    <form method="POST" action="{{ url_for('cinema.cadastrar_sessao') }}">
+        <div class="form-grupo">
+            <label>Filme</label>
+            <select name="filme_id" required>
+                <option value="">Selecione o filme...</option>
+                {% for filme in filmes %}
+                    <option value="{{ filme.id }}">{{ filme.titulo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-grupo">
+            <label>Sala</label>
+            <select name="sala_id" required>
+                <option value="">Selecione a sala...</option>
+                {% for sala in salas %}
+                    <option value="{{ sala.id }}">Sala {{ sala.numero }} (Capacidade: {{ sala.capacidade }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-grupo">
+            <label>Data e hora</label>
+            <input type="datetime-local" name="data_hora" required>
+        </div>
+        <div class="form-grupo">
+            <label>Preço do ingresso (R$)</label>
+            <input type="tell" name="preco" step="any" min="1" required>
+        </div>
+        <button type="submit">Salvar sessão</button>
+    </form>
+
+    <p><a href="{{ url_for('cinema.index') }}">← Voltar</a></p>
+</body>
+</html>
