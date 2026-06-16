@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 from models import Filme, Sala, Sessao, db
-
+from datetime import datetime
 
 cinema_bp = Blueprint("cinema", __name__, url_prefix="/cinema", template_folder="../views/templates")
 
@@ -19,14 +19,16 @@ def cadastrar_sessao():
     if request.method == "POST":
         filme_id = request.form.get("filme_id")
         sala_id = request.form.get("sala_id")
-        data_hora = request.form.get("data_hora")
-        preco = request.form.get("preco")
+        data_hora_texto = request.form.get("data_hora")
+        preco_texto = request.form.get("preco")
+
+        data_hora_objeto = datetime.strptime(data_hora_texto, '%Y-%m-%dT%H:%M')
 
         nova_sessao = Sessao(
-            filme_id=filme_id,
-            sala_id=sala_id,
-            data_hora=data_hora,
-            preco=preco
+            filme_id=int(filme_id),
+            sala_id=int(sala_id),
+            data_hora=data_hora_objeto, 
+            preco=float(preco_texto)    
         )
 
         db.session.add(nova_sessao)
