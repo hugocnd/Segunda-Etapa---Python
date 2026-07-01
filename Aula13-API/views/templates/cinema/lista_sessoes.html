@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema - Programação</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; color: #333; }
+        .btn { background-color: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #007BFF; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Programação do Cinema</h1>
+    <p><a class="btn" href="{{ url_for('cinema.cadastrar_sessao') }}">+ Nova sessão</a></p>
+
+    {% if sessoes %}
+    <table>
+        <thead>
+            <tr>
+                <th>Filme</th>
+                <th>Sala</th>
+                <th>Data/hora</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sessao in sessoes %}
+            <tr>
+                <td>{{ sessao.filme.titulo }}</td>
+                <td>Sala {{ sessao.sala.numero }}</td>
+                <td>{{ sessao.data_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>R$ {{ "%.2f"|format(sessao.preco) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Nenhuma sessão cadastrada no momento.</p>
+    {% endif %}
+</body>
+</html>
